@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FoodMenuModule } from './food-menu/food-menu.module';
 import {Food} from './food-menu/food.entity'
 import { NotificationsModule } from './notifications/notifications.module';
+import {EventEmitterModule } from '@nestjs/event-emitter'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     }),
     FoodMenuModule,
     NotificationsModule,
+    EventEmitterModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,8 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { OnEvent } from '@nestjs/event-emitter';
+import {NewMealEvent} from '../events/new.meal.event'
+
+
 
 @Injectable()
 export class NotificationsService {
-    async notifyUser () {
-        console.log("Hello user, a new meal has been added to our menu. Enjoy.")
+
+    @OnEvent('new.meal')
+    async notifyUser (payload: NewMealEvent) {
+        console.log(`Hello user, ${payload.name} has been added to our menu. Enjoy.`)
     }
 }
