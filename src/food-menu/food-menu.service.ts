@@ -10,8 +10,9 @@ export class FoodMenuService {
     ) {}
 
     async createMenuItem (name: string, price: number) {
-        const food = this.foodRepo.create({ name, price})
-        return await this.foodRepo.save(food)
+        const food = this.foodRepo.create({name, price})
+        await this.foodRepo.save(food)
+        return food
     }
 
     async getMenuItems () {

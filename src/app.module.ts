@@ -4,16 +4,22 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { FoodMenuModule } from './food-menu/food-menu.module';
 import {Food} from './food-menu/food.entity'
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({ 
       type: 'postgres',
-      database: process.env.DB_HOST, // the name of the database
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.PORT),
+      database: process.env.DB_NAME, // the name of the database
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       entities: [Food],
       synchronize: true,
     }),
     FoodMenuModule,
+    NotificationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
