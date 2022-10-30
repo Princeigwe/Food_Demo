@@ -1,4 +1,5 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import { Controller, Post, Body, Get, UploadedFile, UseInterceptors, HttpException, HttpStatus } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {FoodMenuService} from './food-menu.service'
 import {CreateMenuItemDto} from './dtos/createMenuItem.dto'
 
@@ -9,8 +10,12 @@ export class FoodMenuController {
     ) {}
 
     @Post()
-    async createMenuItem ( @Body() body: CreateMenuItemDto ) {
-        return this.foodMenuService.createMenuItem(body.name, body.price)
+    @UseInterceptors(FileInterceptor('file'))
+    async createMenuItem ( @Body() body: CreateMenuItemDto, @UploadedFile() file: Express.Multer.File ) {
+        if( !file.originalname.match( /\.(jpg|png|jpeg)$/) ) {
+            throw new HttpException('File must be an image', HttpStatus.BAD_REQUEST)
+        }
+        return this.foodMenuService.createMenuItem(body.name, body.price, file.originalname, file.buffer)
     }
 
     @Get()

@@ -11,4 +11,7 @@ export class Food {
 
     @Column()
     price: number
+
+    @Column({nullable: true})
+    image: string
 }

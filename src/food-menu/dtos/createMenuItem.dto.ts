@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer'
 import {IsString, IsNotEmpty, IsNumber} from 'class-validator'
 
 export class CreateMenuItemDto {
@@ -8,5 +9,6 @@ export class CreateMenuItemDto {
 
     @IsNotEmpty()
     @IsNumber()
+    @Type(() => Number)
     price: number
 }
