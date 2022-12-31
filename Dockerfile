@@ -13,5 +13,9 @@ RUN npm install
 # COPY the Nest application into the image
 COPY . .
 
+EXPOSE 3000
+
 #  build the application
 RUN npm run build
+
+CMD ["node", "dist/main"]
