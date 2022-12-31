@@ -11,11 +11,11 @@ import {EventEmitterModule } from '@nestjs/event-emitter'
   imports: [
     TypeOrmModule.forRoot({ 
       type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.PORT),
-      database: process.env.DB_NAME, // the name of the database
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
+      host: process.env.NODE_ENV == "production"? process.env.RDS_HOSTNAME : process.env.DB_HOST,
+      port: process.env.NODE_ENV == "production"? parseInt(process.env.RDS_PORT) : parseInt(process.env.DB_PORT),
+      database: process.env.NODE_ENV == "production"? process.env.RDS_DB_NAME : process.env.DB_NAME, // the name of the database
+      username: process.env.NODE_ENV == "production"? process.env.RDS_USERNAME : process.env.DB_USERNAME,
+      password: process.env.NODE_ENV == "production"? process.env.RDS_PASSWORD : process.env.DB_PASSWORD,
       entities: [Food],
       synchronize: true,
     }),
