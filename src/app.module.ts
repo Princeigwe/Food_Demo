@@ -6,6 +6,8 @@ import { FoodMenuModule } from './food-menu/food-menu.module';
 import {Food} from './food-menu/food.entity'
 import { NotificationsModule } from './notifications/notifications.module';
 import {EventEmitterModule } from '@nestjs/event-emitter'
+import { ScheduleModule } from '@nestjs/schedule';
+import { CronjobsModule } from './cronjobs/cronjobs.module';
 
 @Module({
   imports: [
@@ -21,7 +23,9 @@ import {EventEmitterModule } from '@nestjs/event-emitter'
     }),
     FoodMenuModule,
     NotificationsModule,
-    EventEmitterModule.forRoot()
+    EventEmitterModule.forRoot(),
+    CronjobsModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService],
